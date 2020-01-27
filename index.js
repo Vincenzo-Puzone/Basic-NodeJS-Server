@@ -32,7 +32,6 @@ app.post('/save',(req,res)=>{
     }catch(err){
         res.send("Errore nel salvataggio del file");
     }
-    res.redirect('/');
 });
 
 app.post('/load',(req,res)=>{
@@ -52,7 +51,6 @@ app.post('/erase',(req,res)=>{
     }catch(err){
         res.send("Errore nella cancellazione del file");
     }
-    res.redirect('/');
 });
 
 app.post('/creapc',(req,res)=>{
