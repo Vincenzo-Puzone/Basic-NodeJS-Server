@@ -28,20 +28,30 @@ app.get('/',(req,res)=>{
 app.post('/save',(req,res)=>{
     try{
         fs.writeFileSync(path.join(__dirname,'saved','obj.json'),JSON.stringify(pcs));
-    }catch(err){
         res.redirect('/');
+    }catch(err){
+        res.send("Errore nel salvataggio del file");
     }
-    res.redirect('/');
 });
 
 app.post('/load',(req,res)=>{
     try{
         pcs=JSON.parse(fs.readFileSync(path.join(__dirname,'saved','obj.json'), 'utf8'));
+        id=pcs.length;
+        res.redirect('/');
     }catch(err){
+        res.send("Errore nel caricamento del file");
         res.redirect('/');
     }
-    id=pcs.length;
-    res.redirect('/');
+});
+
+app.post('/erase',(req,res)=>{
+    try{
+        fs.writeFileSync(path.join(__dirname,'saved','obj.json'),JSON.stringify([]));
+        res.redirect('/');
+    }catch(err){
+        res.send("Errore nella cancellazione del file");
+    }
 });
 
 app.post('/creapc',(req,res)=>{

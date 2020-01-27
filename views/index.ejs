@@ -28,16 +28,21 @@
                 <input type="submit" value="Invio">
             </form>
         </div>
+        <div class="obj_on_disk">
+            <form method="POST" action="/load">
+                <input type="submit" value="Load from disk">
+            </form>
+            <form method="POST" action="/save">
+                <input type="submit" value="Save to disk">
+            </form>
+            <form method="POST" action="/erase">
+                <input type="submit" value="Erase file on disk">
+            </form>
+        </div>
         <div class="lista_pc">
             <% if (pcs.length<=0) { %>
                 <p>Lista vuota</p>
-                <form method="POST" action="/load">
-                    <input type="submit" value="Load">
-                </form>
             <%}else{%>
-                <form method="POST" action="/save">
-                    <input type="submit" value="Save">
-                </form>
                 <% pcs.forEach(function(pc) { %>
                     <p class="modello">modello:<%= pc.modello %></p>
                     <p class="marca">marca:<%= pc.marca %></p>
