@@ -40,6 +40,7 @@ app.post('/load',(req,res)=>{
         id=pcs.length;
         res.redirect('/');
     }catch(err){
+        res.send("Errore nel caricamento del file");
         res.redirect('/');
     }
 });
