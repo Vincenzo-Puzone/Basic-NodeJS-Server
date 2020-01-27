@@ -1,7 +1,10 @@
 body{
     font-family: 'Courier New', Courier, monospace;
 }
-
+.obj_on_disk{
+    margin: 10px;
+    margin-left: 0px;
+}
 .modello{
     margin-bottom: 0px;
 }
