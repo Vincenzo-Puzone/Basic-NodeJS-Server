@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="it">
+    <head>
+        <meta charset="utf-8">
+        <title>Modifica PC</title>
+        <link rel="stylesheet" href="style.css" type="text/css"> 
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/locale/it.js"></script>
+    </head>
+    <body>
+        <script>
+            var myVar = setInterval(function() {
+                myTimer();
+            }, 1000);
+            function myTimer() {
+                var clock = moment().format('LL LTS');
+                document.getElementById("clock").innerHTML = clock;
+            }
+        </script>
+        <p class="intestazione">Ora attuale:  <p id="clock"><%= date %></p> </p>
+        <p><a href="/">Ritorna Home page</a></p>
+        <p class="intestazione">Modello</p>
+        <p class="intestazione2">Marca</p>
+        <form method="POST" action="/modpc">
+            <input type="hidden" name="id" value="<%= pc.id %>">
+            <input type="text" name="modello" value="<%= pc.modello %>">
+            <input type="text" name="marca" value="<%= pc.marca %>">
+            <input type="submit" value="Modifica">
+        </form>
+    </body>
+</html>

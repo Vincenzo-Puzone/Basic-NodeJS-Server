@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="it">
+    <head>
+        <meta charset="utf-8">
+        <title>Lista PC</title>
+        <link rel="stylesheet" href="style.css" type="text/css"> 
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/locale/it.js"></script>
+    </head>
+    <body>
+        <script>
+            var myVar = setInterval(function() {
+                myTimer();
+            }, 1000);
+            function myTimer() {
+                var clock = moment().format('LL LTS');
+                document.getElementById("clock").innerHTML = clock;
+            }
+        </script>
+        <p class="intestazione">Ora attuale:  <p id="clock"><%= date %></p> </p>
+        <div class="creazione_pc">
+            <p class="titolo">Creazione PC:</p>
+            <p class="intestazione">Modello</p>
+            <p class="intestazione2">Marca</p>
+            <form method="POST" action="/creapc">
+                <input type="text" name="modello">
+                <input type="text" name="marca">
+                <input type="submit" value="Invio">
+            </form>
+        </div>
+        <div class="lista_pc">
+            <% if (pcs.length<=0) { %>
+                <p>Lista vuota</p>
+                <form method="POST" action="/load">
+                    <input type="submit" value="Load">
+                </form>
+            <%}else{%>
+                <form method="POST" action="/save">
+                    <input type="submit" value="Save">
+                </form>
+                <% pcs.forEach(function(pc) { %>
+                    <p class="modello">modello:<%= pc.modello %></p>
+                    <p class="marca">marca:<%= pc.marca %></p>
+                    <p class="date">creato il: <%= pc.createdAtDate %>, alle ore <%= pc.createdAtClock %></p>
+                    <form method="POST" action="/eliminapc">
+                        <input type="hidden" name="id" value="<%= pc.id %>">
+                        <input type="submit" value="Elimina">
+                    </form>
+                    <form method="POST" action="/modificapc">
+                        <input type="hidden" name="id" value="<%= pc.id %>">
+                        <input type="submit" value="Modifica">
+                    </form>
+                <% }); %>
+            <% } %>
+        </div>
+    </body>
+</html>
