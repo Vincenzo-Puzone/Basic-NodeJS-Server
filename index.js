@@ -45,6 +45,16 @@ app.post('/load',(req,res)=>{
     }
 });
 
+app.post('/erase',(req,res)=>{
+    try{
+        fs.writeFileSync(path.join(__dirname,'saved','obj.json'),JSON.stringify([]));
+        res.redirect('/');
+    }catch(err){
+        res.send("Errore nella cancellazione del file");
+    }
+    res.redirect('/');
+});
+
 app.post('/creapc',(req,res)=>{
     id++;
     req.body.id=id;
