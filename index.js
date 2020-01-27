@@ -19,6 +19,7 @@ app.use( morgan('dev') );
 
 let id = 0;
 let pcs = [];
+
 app.get('/',(req,res)=>{
     let date = moment().format('LL LTS');
     res.render('index.ejs',{pcs,date});
