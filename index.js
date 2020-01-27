@@ -26,7 +26,11 @@ app.get('/',(req,res)=>{
 });
 
 app.post('/save',(req,res)=>{
-    fs.writeFileSync(path.join(__dirname,'saved','obj.json'),JSON.stringify(pcs));
+    try{
+        fs.writeFileSync(path.join(__dirname,'saved','obj.json'),JSON.stringify(pcs));
+    }catch(err){
+        res.redirect('/');
+    }
     res.redirect('/');
 });
 
