@@ -30,7 +30,11 @@ app.post('/save',(req,res)=>{
 });
 
 app.post('/load',(req,res)=>{
-    pcs=JSON.parse(fs.readFileSync(path.join(__dirname,'saved','obj.json'), 'utf8'));
+    try{
+        pcs=JSON.parse(fs.readFileSync(path.join(__dirname,'saved','obj.json'), 'utf8'));
+    }catch(err){
+        res.redirect('/');
+    }
     id=pcs.length;
     res.redirect('/');
 });
