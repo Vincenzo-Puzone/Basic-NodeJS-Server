@@ -32,8 +32,9 @@ app.post('/load',(req,res)=>{
 });
 
 app.post('/createdb',(req,res)=>{
-    db.run('CREATE TABLE pcs (id INT,modello TEXT,marca TEXT,createdAtDate TEXT,createdAtClock TEXT)');
-    res.redirect('/');
+    db.run('CREATE TABLE pcs (id INT,modello TEXT,marca TEXT,createdAtDate TEXT,createdAtClock TEXT)',(err)=>{
+        if (err) res.redirect('/');
+    });
 });
 
 app.post('/creapc',(req,res)=>{
