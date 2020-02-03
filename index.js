@@ -5,7 +5,7 @@ const bodyParser = require('body-parser');
 const moment = require('moment');
 const favicon = require('serve-favicon');
 const fs = require('fs')
-
+const sqlite3 = require('sqlite3');
 moment.locale('it');
 
 app = express();
@@ -17,6 +17,7 @@ app.use(express.static('public'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use( morgan('dev') );
 
+let db = new sqlite3.Database('./test.db',()=>console.log('database open'));
 let id = 0;
 let pcs = [];
 
@@ -25,32 +26,14 @@ app.get('/',(req,res)=>{
     res.render('index.ejs',{pcs,date});
 });
 
-app.post('/save',(req,res)=>{
-    try{
-        fs.writeFileSync(path.join(__dirname,'saved','obj.json'),JSON.stringify(pcs));
-        res.redirect('/');
-    }catch(err){
-        res.send("Errore nel salvataggio del file");
-    }
-});
-
 app.post('/load',(req,res)=>{
-    try{
-        pcs=JSON.parse(fs.readFileSync(path.join(__dirname,'saved','obj.json'), 'utf8'));
-        id=pcs.length;
-        res.redirect('/');
-    }catch(err){
-        res.send("Errore nel caricamento del file");
-    }
+    db.each('SELECT * FROM pcs',(err,row)=>pcs.push(row));
+    res.redirect('/');
 });
 
-app.post('/erase',(req,res)=>{
-    try{
-        fs.writeFileSync(path.join(__dirname,'saved','obj.json'),JSON.stringify([]));
-        res.redirect('/');
-    }catch(err){
-        res.send("Errore nella cancellazione del file");
-    }
+app.post('/createdb',(req,res)=>{
+    db.run('CREATE TABLE pcs (id INT,modello TEXT,marca TEXT,createdAtDate TEXT,createdAtClock TEXT)');
+    res.redirect('/');
 });
 
 app.post('/creapc',(req,res)=>{
@@ -59,6 +42,8 @@ app.post('/creapc',(req,res)=>{
     req.body.createdAtDate=moment().format('LL');
     req.body.createdAtClock=moment().format('LTS');
     pcs.push(req.body);
+    let sql = `INSERT INTO pcs(id,modello,marca,createdAtDate,createdAtClock) VALUES(${id},'${req.body.modello}','${req.body.marca}','${req.body.createdAtDate}','${req.body.createdAtClock}')`;
+    db.run(sql)
     res.redirect('/');
 });
 
@@ -67,6 +52,8 @@ app.post('/eliminapc',(req,res)=>{
     pcs=pcs.filter(pcs=>{
         return pcs.id !== id;
     });
+    let sql = `DELETE FROM pcs WHERE pcs.id=${id}`;
+    db.run(sql)
     res.redirect('/');
 });
 
@@ -85,6 +72,8 @@ app.post('/modpc',(req,res)=>{
     const element = pcs.find(element => element.id===id);
     element.modello=req.body.modello;
     element.marca=req.body.marca;
+    let sql = `UPDATE pcs SET modello='${element.modello}',marca='${element.marca}' WHERE pcs.id = ${id}`
+    db.run(sql);
     res.redirect('/');
 });
 
