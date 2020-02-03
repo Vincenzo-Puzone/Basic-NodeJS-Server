@@ -4,7 +4,6 @@ const path = require('path');
 const bodyParser = require('body-parser');    
 const moment = require('moment');
 const favicon = require('serve-favicon');
-const fs = require('fs')
 const sqlite3 = require('sqlite3');
 moment.locale('it');
 
