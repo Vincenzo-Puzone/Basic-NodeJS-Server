@@ -10,6 +10,6 @@ npm install
 
 Run with:
 ```shell
-npm run server
+npm run start
 ```
 
