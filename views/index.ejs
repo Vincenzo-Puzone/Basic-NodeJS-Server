@@ -16,6 +16,17 @@
                 var clock = moment().format('LL LTS');
                 document.getElementById("clock").innerHTML = clock;
             }
+            function loadDoc(){
+                var xhttp = new XMLHttpRequest();
+                xhttp.onreadystatechange = function() {
+                        if (this.readyState == 4 && this.status == 200) {
+                        document.getElementById("ajax").innerHTML =
+                        this.responseText;
+                    }
+                };
+                xhttp.open("GET", "test.txt", true);
+                xhttp.send();
+            }
         </script>
         <p class="intestazione">Ora attuale:  <p id="clock"><%= date %></p> </p>
         <div class="creazione_pc">
@@ -28,6 +39,8 @@
                 <input type="submit" value="Invio">
             </form>
         </div>
+        <button type="button" onclick="loadDoc()">test<
+        <p id="ajax"> </p>
         <div class="obj_on_disk">
             <form method="POST" action="/load">
                 <input type="submit" value="Load from db">
