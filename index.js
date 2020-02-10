@@ -26,7 +26,10 @@ app.get('/',(req,res)=>{
 });
 
 app.post('/load',(req,res)=>{
-    db.each('SELECT * FROM pcs',(err,row)=>pcs.push(row));
+    db.each('SELECT * FROM pcs',(err,row)=>{
+        pcs.push(row);
+        id = pcs.length;
+    });
     res.redirect('/');
 });
 
