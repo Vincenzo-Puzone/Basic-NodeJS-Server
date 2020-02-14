@@ -12,4 +12,4 @@ Run with:
 ```shell
 npm run start
 ```
-
+## NO MORE MAJOR UPDATES
