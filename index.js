@@ -25,9 +25,9 @@ app.get('/',(req,res)=>{
     res.render('index.ejs',{pcs,date});
 });
 
-app.post('/load',(req,res)=>{
-    db.each('SELECT * FROM pcs',(err,row)=>{
-        pcs.push(row);
+app.get('/load',(req,res)=>{
+    db.all('SELECT * FROM pcs',(err,rows)=>{
+        pcs=row;
         id = pcs.length;
     });
     res.redirect('/');
