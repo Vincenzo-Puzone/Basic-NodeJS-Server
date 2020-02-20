@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <title>Lista PC</title>
-        <link rel="stylesheet" href="style.css" type="text/css"> 
+        <link rel="stylesheet" href="/css/style.css" type="text/css"> 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/locale/it.js"></script>
     </head>
@@ -48,10 +48,7 @@
                         <input type="hidden" name="id" value="<%= pc.id %>">
                         <input type="submit" value="Elimina">
                     </form>
-                    <form method="POST" action="/modificapc">
-                        <input type="hidden" name="id" value="<%= pc.id %>">
-                        <input type="submit" value="Modifica">
-                    </form>
+                    <a href="/modificapc/<%= pc.id %>">Modifica</a>
                 <% }); %>
             <% } %>
         </div>
