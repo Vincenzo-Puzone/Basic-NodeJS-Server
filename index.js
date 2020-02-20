@@ -12,7 +12,7 @@ app = express();
 app.set('views',path.join(__dirname,"views"));
 app.set('view engine', 'ejs');
 app.use(favicon(path.join(__dirname,'public','favicon.ico')));
-app.use(express.static('public'));
+app.use('/css', express.static('public'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use( morgan('dev') );
 
@@ -25,9 +25,9 @@ app.get('/',(req,res)=>{
     res.render('index.ejs',{pcs,date});
 });
 
-app.post('/load',(req,res)=>{
-    db.each('SELECT * FROM pcs',(err,row)=>{
-        pcs.push(row);
+app.get('/load',(req,res)=>{
+    db.all('SELECT * FROM pcs',(err,rows)=>{
+        pcs=rows;
         id = pcs.length;
     });
     res.redirect('/');
@@ -60,9 +60,9 @@ app.post('/eliminapc',(req,res)=>{
     res.redirect('/');
 });
 
-app.post('/modificapc',(req,res)=>{
+app.get('/modificapc/:id',(req,res)=>{
     let date = moment().format('LL LTS');
-    const ids=parseInt(req.body.id);
+    const ids=parseInt(req.params.id);
     pc=pcs.filter(function(pcs){
         return pcs.id === ids;
     });
