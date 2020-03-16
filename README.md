@@ -12,4 +12,7 @@ Run with:
 ```shell
 npm run start
 ```
+## License
+The content of this project itself and and the underlying source code used to format and display that content is licensed under the The GNU General Public Lcense v3
+
 ## NO MORE MAJOR UPDATES
